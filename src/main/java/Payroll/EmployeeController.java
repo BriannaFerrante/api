@@ -1,7 +1,9 @@
 package Payroll;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,45 +21,44 @@ class EmployeeController {
     this.repository = repository;
   }
 
-
-  // Aggregate root
-  // tag::get-aggregate-root[]
   @GetMapping("/employees")
   List<Employee> all() {
     return repository.findAll();
   }
-  // end::get-aggregate-root[]
 
   @PostMapping("/employees")
-  Employee newEmployee(@RequestBody Employee newEmployee) {
-    return repository.save(newEmployee);
+  ResponseEntity<Employee> newEmployee(@RequestBody Employee newEmployee) {
+    Employee saved = repository.save(newEmployee);
+    return ResponseEntity.created(URI.create("/employees/" + saved.getId())).body(saved);
   }
 
-  // Single item
-  
   @GetMapping("/employees/{id}")
   Employee one(@PathVariable Long id) {
-    
     return repository.findById(id)
-      .orElseThrow(() -> new EmployeeNotFoundException(id));
+        .orElseThrow(() -> new EmployeeNotFoundException(id));
   }
 
   @PutMapping("/employees/{id}")
   Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-    
     return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setRole(newEmployee.getRole());
-        return repository.save(employee);
-      })
-      .orElseGet(() -> {
-        return repository.save(newEmployee);
-      });
+        .map(employee -> {
+          employee.setNombre(newEmployee.getNombre());
+          employee.setCargo(newEmployee.getCargo());
+          employee.setDepartamento(newEmployee.getDepartamento());
+          employee.setSalario(newEmployee.getSalario());
+          employee.setCorreo(newEmployee.getCorreo());
+          employee.setFechaIngreso(newEmployee.getFechaIngreso());
+          return repository.save(employee);
+        })
+        .orElseThrow(() -> new EmployeeNotFoundException(id));
   }
 
   @DeleteMapping("/employees/{id}")
-  void deleteEmployee(@PathVariable Long id) {
+  ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    if (!repository.existsById(id)) {
+      throw new EmployeeNotFoundException(id);
+    }
     repository.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 }

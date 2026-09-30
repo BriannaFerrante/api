@@ -1,0 +1,142 @@
+:root {
+  --ink: #1c2430;
+  --muted: #5c6b7a;
+  --line: #d7dee6;
+  --paper: #f4f7f6;
+  --card: #ffffff;
+  --accent: #0f6e56;
+  --accent-dark: #0b5342;
+  --danger: #9d2c2c;
+  --warn: #8a5a12;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  padding: 28px 32px 8px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+h1, h2 { margin: 0; font-weight: 650; }
+h1 { font-size: 32px; }
+h2 { font-size: 20px; }
+
+main {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  padding: 20px 32px 40px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.hint, .empty, .message {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+label {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+input {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 14px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover { background: var(--accent-dark); }
+
+button.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+button.ghost:hover { background: #eef3f1; }
+
+button.danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid #e4c4c4;
+}
+
+button.danger:hover { background: #fdf4f4; }
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.message.error { color: var(--danger); }
+.message.ok { color: var(--accent-dark); }
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+th { color: var(--muted); font-weight: 600; font-size: 12px; }
+
+.row-actions { display: flex; gap: 6px; }
+
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; padding: 16px; }
+  .top { padding: 20px 16px 0; flex-direction: column; align-items: start; }
+}

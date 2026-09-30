@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nómina — empleados</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <p class="eyebrow">API REST · Spring Boot</p>
+      <h1>Nómina de empleados</h1>
+    </div>
+    <button id="refresh" type="button" class="ghost">Actualizar lista</button>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2 id="form-title">Nuevo empleado</h2>
+      <p class="hint" id="form-hint">POST /employees</p>
+      <form id="employee-form">
+        <label>Nombre
+          <input id="nombre" name="nombre" required maxlength="80" autocomplete="name">
+        </label>
+        <label>Cargo
+          <input id="cargo" name="cargo" required maxlength="80">
+        </label>
+        <label>Departamento
+          <input id="departamento" name="departamento" required maxlength="80">
+        </label>
+        <label>Salario
+          <input id="salario" name="salario" type="number" min="0" step="0.01" required>
+        </label>
+        <label>Correo
+          <input id="correo" name="correo" type="email" required maxlength="120">
+        </label>
+        <label>Fecha de ingreso
+          <input id="fechaIngreso" name="fechaIngreso" type="date" required>
+        </label>
+        <div class="actions">
+          <button type="submit" id="save">Crear empleado</button>
+          <button type="button" id="cancel" class="ghost" hidden>Cancelar edición</button>
+        </div>
+      </form>
+      <p id="message" class="message" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Empleados</h2>
+      <p class="hint">GET /employees</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Cargo</th>
+              <th>Departamento</th>
+              <th>Salario</th>
+              <th>Correo</th>
+              <th>Ingreso</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty" hidden>No hay empleados cargados.</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

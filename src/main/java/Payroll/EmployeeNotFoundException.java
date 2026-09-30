@@ -3,6 +3,6 @@ package Payroll;
 class EmployeeNotFoundException extends RuntimeException {
 
   EmployeeNotFoundException(Long id) {
-    super("Could not find employee " + id);
+    super("No se encontró el empleado " + id);
   }
 }
